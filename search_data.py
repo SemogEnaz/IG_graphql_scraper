@@ -1,5 +1,6 @@
 import json
 import requests
+import sys
 
 def parse_content_links(res_json: json) -> list[str]:
     edges = res_json['data']['xdt_shortcode_media']['edge_sidecar_to_children']['edges']
@@ -14,7 +15,16 @@ def parse_content_links(res_json: json) -> list[str]:
 
     return links
 
-search_query = 'a'
+search_query = ''
+
+if len(sys.argv) < 2:
+    print('Please enter a search query as argument to program')
+    print('eg: python search_data.py kanyewest')
+    pass
+else: 
+    search_query = sys.argv[1]
+
+print(f'\nSearch Query: {search_query}\n')
 
 # Initial page to get CSRF token
 url = 'https://www.instagram.com/accounts/login/'
